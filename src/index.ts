@@ -1,31 +1,30 @@
 import { ApolloServer } from '@apollo/server';
 import { startStandaloneServer } from '@apollo/server/standalone';
-import { db } from './db.js';
 
-// A schema is a collection of type definitions (hence "typeDefs")
-// that together define the "shape" of queries that are executed against
-// your data.
 const typeDefs = `#graphql
-
-type Product {
-    id: ID!
-    name: String
-    image: String
-    description: String
-    price: Float
-    quantity: Int
-    onStock: Boolean
-    categoryId: String
-}
-type Query{
-    products: [Product]
-}
-
+  type Book {
+    title: String
+    author: String
+  }
+  type Query {
+    books: [Book]
+  }
 `;
+
+const books = [
+  {
+    title: 'The Awakening',
+    author: 'Kate Chopin',
+  },
+  {
+    title: 'City of Glass',
+    author: 'Paul Auster',
+  },
+];
 
 const resolvers = {
   Query: {
-    products: () => db.products,
+    books: () => books,
   },
 };
 
